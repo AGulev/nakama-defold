@@ -42,7 +42,7 @@ local M = {}
 
 --------------------------------------------------------------------------------
 --- create_{{ $classname | pascalToSnake }}
--- {{ $definition.Description | stripNewlines }}
+-- {{ $definition.Description | mulilineComment }}
 function M.create_{{ $classname | pascalToSnake }}(
 	{{- $first := 1 }}
 	{{- range $propname, $property := $definition.Properties }}
@@ -338,6 +338,11 @@ func stripNewlines(input string) (output string) {
 	return
 }
 
+func mulilineComment(input string) (output string) {
+	output = strings.Replace(input, "\n", "\n-- ", -1)
+	return
+}
+
 func pascalToSnake(input string) (output string) {
 	output = ""
 	prev_low := false
@@ -498,6 +503,7 @@ func main() {
 		"varComment": varComment,
 		"isAuthenticateMethod": isAuthenticateMethod,
 		"removePrefix": removePrefix,
+		"mulilineComment":mulilineComment,
 	}
 	tmpl, err := template.New(input).Funcs(fmap).Parse(codeTemplate)
 	if err != nil {
