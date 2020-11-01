@@ -1,4 +1,4 @@
-local client_async = require "websocket.client_async"
+-- local client_async = require "websocket.client_async"
 
 local log = require "nakama.util.log"
 local b64 = require "nakama.util.b64"
